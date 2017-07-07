@@ -1,0 +1,33 @@
+<!--单个内容区域-->
+<section>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-9">
+        <!--内容-->
+        <div class="blog-main">
+          <div class="heading-blog">
+            这里是标题
+          </div>
+          <!--第二个参数是ID-->
+          <a [routerLink]="['/blogDetail',1]">
+            <img src="../../assets/img/1.jpg" class="img-responsive img-rounded"/>
+          </a>
+          <div class="blog-info">
+            <span class="label label-primary">时间戳</span>
+            <span class="label label-success">主题分类</span>
+            <span class="label label-danger">作者</span>
+            <span class="label label-info">
+              <i class="fa fa-thumbs-up"></i>+ 10
+              <i class="fa fa-thumbs-down"></i>-3
+            </span>
+          </div>
+          <div class="blog-txt">
+            这里是简介，这里是简介，这里是简介，这里是简介，
+            这里是简介，这里是简介，这里是简介，这里是简介，
+            这里是简介，这里是简介，这里是简介，这里是简介
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
