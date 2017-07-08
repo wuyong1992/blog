@@ -15,6 +15,7 @@ import {HomeComponent} from './home/home.component';
 import {RouterModule, Routes} from "@angular/router";
 import {FormsModule} from "@angular/forms";
 import {HttpModule} from "@angular/http";
+import {HashLocationStrategy, LocationStrategy} from "@angular/common";
 
 
 const routeConfig: Routes = [
@@ -42,7 +43,12 @@ const routeConfig: Routes = [
     HttpModule,
     RouterModule.forRoot(routeConfig)
   ],
-  providers: [],
+  providers: [
+    {
+      provide: LocationStrategy,
+      useClass: HashLocationStrategy
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {
