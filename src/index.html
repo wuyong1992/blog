@@ -11,10 +11,21 @@
   <title>Bootstrap Free Blog Template</title>
   <!--css/js统一由.angular-cli.json文件调用-->
   <base href="/">
+  <!--<script src="assets/layer/layer.js"></script>-->
 </head>
 <body>
 
 <app-root></app-root>
+
+<button id="test1">小小提示层</button>
+<!--$未定义-->
+
+<script>
+  $('#test1').on('click', function(){
+    alert("haha")
+  });
+
+</script>
 
 </body>
 </html>

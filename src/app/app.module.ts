@@ -35,7 +35,7 @@ const routeConfig: Routes = [
     PagingComponent,
     BlogDetailsComponent,
     FooterComponent,
-    HomeComponent
+    HomeComponent,
   ],
   imports: [
     BrowserModule,
