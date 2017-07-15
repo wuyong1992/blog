@@ -15,7 +15,6 @@ export class NavbarComponent implements OnInit {
   }
 
   login() {
-    alert("弹框");
-
+    // alert("弹框");
   }
 }

@@ -1,3 +1,13 @@
-<p>
-  home works!
-</p>
+<div class="row">
+  <div class="col-md-9">
+    <router-outlet></router-outlet>
+  </div>
+
+  <!--右侧内容-->
+  <div class="col-md-3">
+    <!--搜索框-->
+    <app-search></app-search>
+    <br />
+    <app-right-side></app-right-side>
+  </div>
+</div>
