@@ -1,4 +1,6 @@
 import {Component, OnInit} from '@angular/core';
+import {UserService} from "../user/service/user.service";
+import {User} from "../user/model/user-model";
 
 @Component({
   selector: 'app-navbar',
@@ -7,14 +9,19 @@ import {Component, OnInit} from '@angular/core';
 })
 export class NavbarComponent implements OnInit {
 
-  constructor() {
+  public currentUser: User;
+
+  constructor(private userService:UserService) {
+
   }
 
   ngOnInit() {
-
+    this.currentUser = this.userService.currentUser;
+    console.log(this.currentUser.nickname);
+    console.log("初始化")
   }
 
-  login() {
+  userLogin() {
     // alert("弹框");
   }
 }

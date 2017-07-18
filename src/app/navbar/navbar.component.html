@@ -39,12 +39,27 @@
         </li>
       </ul>
 
-      <ul class="nav navbar-nav navbar-right">
+      <!--如果当前用户为空，则显示登录或者注册，如果不为空，则显示用户名-->
+      <ul class="nav navbar-nav navbar-right" *ngIf="!currentUser?.username">
         <li class="">
           <a href="#" routerLink="login">Login</a>
         </li>
         <li>
           <a routerLink="register">register</a>
+        </li>
+        <li>
+          {{currentUser.nickname}}
+        </li>
+      </ul>
+      <!--当前用户已登录-->
+      <ul class="nav navbar-nav navbar-right" *ngIf="currentUser?.username">
+        <li class="">
+          <!--<a href="#" routerLink="userInfo">{{currentUser.username}}</a>-->
+          {{currentUser.nickname}}
+        </li>
+        <li *ngIf="currentUser?.role == 1">
+          <!--<a routerLink="admin">后台管理</a>-->
+          后台管理
         </li>
       </ul>
     </div>

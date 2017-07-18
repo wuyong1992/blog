@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {UserService} from "../service/user.service";
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {User} from "../model/user-model";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-user-register',
@@ -14,7 +15,9 @@ export class UserRegisterComponent implements OnInit {
   public user: User;
 
   constructor(private userService: UserService,
-              private fb: FormBuilder) {
+              private fb: FormBuilder,
+              public router: Router,
+              private route: ActivatedRoute) {
     this.builder()
   }
 
@@ -30,15 +33,21 @@ export class UserRegisterComponent implements OnInit {
      console.log(this.user)*/
     this.userService.register(this.user)
       .subscribe(
-      (data) => {
-        console.log(data);
-        if (data.status == 0) {
-          alert("注册成功");
-        }else {
-          alert("注册失败");
+        (data) => {
+          console.log(data);
+          if (data.status == 0) {
+            //注册成功后，跳转值登录页面
+            //TODO 注册成功后，应该自动登录，跳转值首页
+            this.router.navigateByUrl("login");
+          } else {
+            //TODO 注册失败友好提示
+            alert("注册失败");
+          }
+        },
+        error => {
+          alert(error.message)
         }
-      }
-    );
+      );
     console.log("调用service结束");
   }
 
