@@ -12,6 +12,7 @@ import {AppRoutingModule} from "./app-routing.module";
 import {UserRegisterComponent} from "./user/user-register/user-register.component";
 import {UserLoginComponent} from "./user/user-login/user-login.component";
 import {UserService} from "./user/service/user.service";
+import {ToastModule} from "ng2-toastr";
 
 
 /*const routeConfig: Routes = [
@@ -36,6 +37,7 @@ import {UserService} from "./user/service/user.service";
     // RouterModule.forRoot(routeConfig)
     AppRoutingModule,
     ReactiveFormsModule,
+    ToastModule.forRoot()
   ],
   providers: [
     UserService

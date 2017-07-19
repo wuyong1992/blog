@@ -47,19 +47,19 @@
         <li>
           <a routerLink="register">register</a>
         </li>
-        <li>
-          {{currentUser.nickname}}
-        </li>
       </ul>
       <!--当前用户已登录-->
       <ul class="nav navbar-nav navbar-right" *ngIf="currentUser?.username">
         <li class="">
           <!--<a href="#" routerLink="userInfo">{{currentUser.username}}</a>-->
-          {{currentUser.nickname}}
+          <a >{{currentUser.nickname}}</a>
         </li>
-        <li *ngIf="currentUser?.role == 1">
+        <li *ngIf="currentUser?.role != 1">
           <!--<a routerLink="admin">后台管理</a>-->
-          后台管理
+          <a (click)="doLogout()">退出</a>
+        </li><li *ngIf="currentUser?.role == 1">
+          <!--<a routerLink="admin">后台管理</a>-->
+          <a >后台管理</a>
         </li>
       </ul>
     </div>
