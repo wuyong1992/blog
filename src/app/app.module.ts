@@ -12,7 +12,9 @@ import {AppRoutingModule} from "./app-routing.module";
 import {UserRegisterComponent} from "./user/user-register/user-register.component";
 import {UserLoginComponent} from "./user/user-login/user-login.component";
 import {UserService} from "./user/service/user.service";
-import {ToastModule} from "ng2-toastr";
+import {ToastModule, ToastOptions} from "ng2-toastr";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {ToastOptionSelf} from "./util/toast-option-self";
 
 
 /*const routeConfig: Routes = [
@@ -32,6 +34,7 @@ import {ToastModule} from "ng2-toastr";
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     FormsModule,
     HttpModule,
     // RouterModule.forRoot(routeConfig)
@@ -40,7 +43,8 @@ import {ToastModule} from "ng2-toastr";
     ToastModule.forRoot()
   ],
   providers: [
-    UserService
+    UserService,
+    {provide:ToastOptions,useClass:ToastOptionSelf}
   ],
   bootstrap: [AppComponent]
 })

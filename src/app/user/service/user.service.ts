@@ -1,10 +1,11 @@
-import {Injectable} from '@angular/core';
+import {Injectable, ViewContainerRef} from '@angular/core';
 import {User} from "../model/user-model";
 import {Http, URLSearchParams} from "@angular/http";
 import {Observable} from "rxjs/Observable";
 import 'rxjs/Rx';
 import {Router} from "@angular/router";
 import {Subject} from "rxjs/Subject";
+import {ToastsManager} from "ng2-toastr";
 
 @Injectable()
 export class UserService {
@@ -15,22 +16,19 @@ export class UserService {
   public userIsLoginURL = "http://localhost:8080/user/isLogin";
   public userLogoutURL = "http://localhost:8080/user/logout";
   public subject: Subject<User> = new Subject<User>();
+
   // public currentUser: User = new User;
 
-  public get currentUser():Observable<User>{
+  public get currentUser(): Observable<User> {
     return this.subject.asObservable();
   }
 
 
   constructor(private http: Http,
-              private router:Router) {
+              private router: Router,
+              private toastr: ToastsManager) {
   }
 
-  //向后台post数据的写法如下
-  // let data = new URLSearchParams();
-  // data.append('email', user.email);
-  // data.append('password', user.password);
-  // return this.http.post(this.userRegisterURL,data);
 
   //注册
   public register(user: User) {
@@ -56,72 +54,49 @@ export class UserService {
         if (user) {
           localStorage.setItem("currentUser", JSON.stringify(user));
           //一定得是user.data,这返回的才是user对象
-          this.subject.next(Object.assign({},user.data));
+          this.subject.next(Object.assign({}, user.data));
 
           console.log(localStorage.getItem("currentUser"));
+          this.toastr.success("登陆成功", "系统提示", {toastLife: 1500});
           this.router.navigateByUrl("home");
         }
         return res;
       }).subscribe(
-        data =>{
+        data => {
           if (data.status == 0) {
-            this.router.navigateByUrl("home");
+            //this.router.navigateByUrl("home");
           }
         },
         error2 => {
-          alert("登录失败");
+          this.toastr.error("登陆失败", "系统提示", {toastLife: 1500});
         }
       );
   }
 
   //退出
-  public logout(){
+  public logout() {
     //远端session中删除currentUser
-    this.http.get(this.userLogoutURL)
+    let data = new URLSearchParams();
+    this.http.post(this.userLogoutURL, data).map(res => res.json())
       .subscribe(
-        data =>{
+        data => {
+          console.log(data);
           if (data.status == 0) {
             //本地缓存中删除currentUser
+            console.log("退出中....");
             localStorage.removeItem("currentUser");
             this.subject.next(Object.assign({}));
-          }else {
-            alert("退出失败");
+            this.toastr.success("ok!", "系统提示", {toastLife: 1500});
+          } else {
+            this.toastr.error("退出失败", "系统提示", {toastLife: 1500});
           }
         },
         error2 => {
-          alert("退出失败");
+          console.log(error2.message);
+          this.toastr.error("退出失败", "系统提示", {toastLife: 1500});
         }
       );
   }
-
-
-
-  //获取当前用户
-  /*public getCurrentUser(user: User):User{
-    this.login(user).subscribe(
-      data => {
-        if (data.status == 0) {
-          this.currentUser = data.data;
-          console.log(this.currentUser);
-          return this.currentUser;
-        }
-        else {
-          alert(data.msg);
-          return null;
-        }
-      },
-      error => {
-        console.log(error.message);
-        return null;
-      }
-    );
-    return null;
-  }*/
-
-  /*public returnCurrentUser():User{
-    console.log(this.currentUser);
-    return this.currentUser;
-  }*/
 
   //是否登录
   public isLogin() {

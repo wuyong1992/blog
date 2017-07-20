@@ -1,8 +1,9 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewContainerRef} from '@angular/core';
 import {UserService} from "../service/user.service";
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {User} from "../model/user-model";
 import {ActivatedRoute, Router} from "@angular/router";
+import {ToastsManager} from "ng2-toastr";
 
 @Component({
   selector: 'app-user-register',
@@ -17,7 +18,9 @@ export class UserRegisterComponent implements OnInit {
   constructor(private userService: UserService,
               private fb: FormBuilder,
               public router: Router,
-              private route: ActivatedRoute) {
+              private toastr: ToastsManager,
+              private vcr: ViewContainerRef) {
+    this.toastr.setRootViewContainerRef(vcr);
     this.builder()
   }
 
@@ -40,8 +43,7 @@ export class UserRegisterComponent implements OnInit {
             //TODO 注册成功后，应该自动登录，跳转值首页
             this.router.navigateByUrl("login");
           } else {
-            //TODO 注册失败友好提示
-            alert("注册失败");
+            this.toastr.error("注册失败，请重新提交", "系统提示", {toastLife: 1000});
           }
         },
         error => {
