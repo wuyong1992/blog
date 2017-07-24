@@ -15,6 +15,8 @@ import {UserService} from "./user/service/user.service";
 import {ToastModule, ToastOptions} from "ng2-toastr";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {ToastOptionSelf} from "./util/toast-option-self";
+import { RichtextComponent } from './richtext/richtext.component';
+import {FroalaEditorModule, FroalaViewModule} from "angular-froala-wysiwyg";
 
 
 /*const routeConfig: Routes = [
@@ -37,10 +39,11 @@ import {ToastOptionSelf} from "./util/toast-option-self";
     BrowserAnimationsModule,
     FormsModule,
     HttpModule,
-    // RouterModule.forRoot(routeConfig)
     AppRoutingModule,
     ReactiveFormsModule,
-    ToastModule.forRoot()
+    ToastModule.forRoot(),
+    FroalaViewModule.forRoot(),
+    FroalaEditorModule.forRoot(),
   ],
   providers: [
     UserService,
