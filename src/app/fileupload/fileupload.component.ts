@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FileUploader} from "ng2-file-upload";
 
 const URL = 'http://localhost:8080/blog/imgUpload';
@@ -10,7 +10,8 @@ const URL = 'http://localhost:8080/blog/imgUpload';
 })
 export class FileuploadComponent implements OnInit {
 
-
+  //true显示，false隐藏
+  show: boolean = true;
   values: ImageFile[] = [];
   file: Array<Object>;
 
@@ -27,6 +28,8 @@ export class FileuploadComponent implements OnInit {
 
   //本地预览
   selectedFileOnChanged(event: any) {
+    this.show = !this.show;
+
     let files = event.target.files;
     console.log(event);
     for (let i = 0; i < files.length; i++) {
@@ -55,6 +58,10 @@ export class FileuploadComponent implements OnInit {
     //console.log(this.uploader.queue)
   }
 
+  clear() {
+    this.uploader.clearQueue();
+    this.show = !this.show;
+  }
 
 
   ngOnInit(): void {

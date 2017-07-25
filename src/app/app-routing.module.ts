@@ -23,7 +23,7 @@ const routeConfig: Routes = [
   {path:'login',loadChildren:'./user/user.module#UserModule'}*/
   {path:'register',component:UserRegisterComponent},
   {path:'login',component:UserLoginComponent},
-  {path:'coding',loadChildren:'./coding/coding.module#CodingModule'}
+  {path:'coding',loadChildren:'./blogs/blogs.module#BlogsModule'}
 ];
 
 @NgModule({

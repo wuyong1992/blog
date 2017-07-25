@@ -15,11 +15,10 @@ import {UserService} from "./user/service/user.service";
 import {ToastModule, ToastOptions} from "ng2-toastr";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {ToastOptionSelf} from "./util/toast-option-self";
-import { RichtextComponent } from './richtext/richtext.component';
 import {FroalaEditorModule, FroalaViewModule} from "angular-froala-wysiwyg";
-import { FileuploadComponent } from './fileupload/fileupload.component';
 import {FileUploadModule} from "ng2-file-upload";
 import {CommonModule} from "@angular/common";
+import {BlogService} from "./blogs/service/blog.service";
 
 
 /*const routeConfig: Routes = [
@@ -52,7 +51,8 @@ import {CommonModule} from "@angular/common";
   ],
   providers: [
     UserService,
-    {provide:ToastOptions,useClass:ToastOptionSelf}
+    {provide:ToastOptions,useClass:ToastOptionSelf},
+    BlogService
   ],
   bootstrap: [AppComponent]
 })
