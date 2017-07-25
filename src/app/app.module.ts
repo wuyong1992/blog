@@ -17,6 +17,9 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {ToastOptionSelf} from "./util/toast-option-self";
 import { RichtextComponent } from './richtext/richtext.component';
 import {FroalaEditorModule, FroalaViewModule} from "angular-froala-wysiwyg";
+import { FileuploadComponent } from './fileupload/fileupload.component';
+import {FileUploadModule} from "ng2-file-upload";
+import {CommonModule} from "@angular/common";
 
 
 /*const routeConfig: Routes = [
@@ -44,6 +47,8 @@ import {FroalaEditorModule, FroalaViewModule} from "angular-froala-wysiwyg";
     ToastModule.forRoot(),
     FroalaViewModule.forRoot(),
     FroalaEditorModule.forRoot(),
+    CommonModule,
+    FileUploadModule
   ],
   providers: [
     UserService,
