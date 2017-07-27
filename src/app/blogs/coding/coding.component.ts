@@ -3,6 +3,8 @@ import {FormBuilder, FormGroup} from "@angular/forms";
 import {Router} from "@angular/router";
 import {Blog} from "../model/blog-model";
 import {BlogService} from "../service/blog.service";
+import {User} from "../../user/model/user-model";
+import {ToastsManager} from "ng2-toastr";
 
 @Component({
   selector: 'app-coding',
@@ -16,17 +18,24 @@ export class CodingComponent implements OnInit {
 
   //表单
   public blogForm: FormGroup;
-
   public blog: Blog;
+  public currentUser: User;
 
   constructor(private fb: FormBuilder,
               private router: Router,
-              private blogService:BlogService) {
+              private blogService:BlogService,
+              private toastr: ToastsManager) {
     this.froala = "";
   }
 
   ngOnInit() {
     this.builder();
+    if (!localStorage.getItem("currentUser")) {
+      this.toastr.warning("请先登录！", "系统提示");
+      this.router.navigateByUrl("login");
+    }else {
+      this.currentUser = JSON.parse(localStorage.getItem("currentUser"));
+    }
   }
 
   froalaContent(event: string) {
@@ -37,17 +46,22 @@ export class CodingComponent implements OnInit {
   builder() {
     this.blogForm = this.fb.group({
       title: [],
-      imgUrl: [],
       intro: [],
       content: []
     });
   }
 
+  //提交
   onSubmit(){
     this.blog = this.blogForm.value;
     this.blog.content = this.froala;
+    this.blog.authorId = this.currentUser.id;
     console.log(this.blog);
-    this.blogService.submit(this.blog);
+    if (this.blog.authorId == null) {
+      this.toastr.warning("请先登录！", "系统提示");
+      this.router.navigateByUrl("login");
+    }
+    this.blogService.save(this.blog);
   }
 
 }

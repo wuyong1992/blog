@@ -8,6 +8,7 @@ import {FroalaEditorModule, FroalaViewModule} from "angular-froala-wysiwyg";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {RichtextComponent} from "../richtext/richtext.component";
 import {FileuploadComponent} from "../fileupload/fileupload.component";
+import { BlogsComponent } from './blogs.component';
 
 @NgModule({
   imports: [
@@ -19,6 +20,6 @@ import {FileuploadComponent} from "../fileupload/fileupload.component";
     FroalaViewModule.forRoot(),
     FileUploadModule
   ],
-  declarations: [CodingComponent,RichtextComponent,FileuploadComponent]
+  declarations: [CodingComponent,RichtextComponent,FileuploadComponent, BlogsComponent]
 })
 export class BlogsModule { }

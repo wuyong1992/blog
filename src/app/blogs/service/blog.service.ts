@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Blog} from "../model/blog-model";
-import {Http} from "@angular/http";
+import {Http, URLSearchParams} from "@angular/http";
 import {Router} from "@angular/router";
 import {ToastsManager} from "ng2-toastr";
 
@@ -9,7 +9,7 @@ export class BlogService {
 
   public blog: Blog;
 
-  public blogSubmitURL = "http://localhost:8080/blog/blogSubmit";
+  public blogSaveURL = "http://localhost:8080/blog/blogSave";
 
 
   constructor(private http: Http,
@@ -20,18 +20,19 @@ export class BlogService {
 
   //提交表单
 
-  public submit(blog: Blog) {
+  public save(blog: Blog) {
     console.log("发送blog请求");
 
     let data = new URLSearchParams();
-    data.append("title",blog.title);
-    data.append("intro",blog.intro);
-    data.append("content",blog.content);
+    data.append("title", blog.title);
+    data.append("intro", blog.intro);
+    data.append("content", blog.content);
+    data.append("authorId", blog.authorId + "");
 
-    return this.http.post(this.blogSubmitURL, data)
+    return this.http.post(this.blogSaveURL, data)
       .map(res => {
         let data = res.json();
-        console.log("user object =>" + data);
+        console.log("data object =>" + data);
         // console.log("user data =>" + res.json().data.status);
         if (data.status == 0) {
           console.log(data.data);

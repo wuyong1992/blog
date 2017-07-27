@@ -25,7 +25,7 @@ export class UserLoginComponent implements OnInit {
   ngOnInit() {
     this.builder();
     if (JSON.parse(localStorage.getItem("currentUser"))) {
-      this.currentUser = JSON.parse(localStorage.getItem("currentUser")).data;
+      this.currentUser = JSON.parse(localStorage.getItem("currentUser"));
     }
   }
 

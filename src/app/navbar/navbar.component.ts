@@ -24,7 +24,7 @@ export class NavbarComponent implements OnInit, DoCheck {
 
   ngOnInit() {
     if (JSON.parse(localStorage.getItem("currentUser"))) {
-      this.currentUser = JSON.parse(localStorage.getItem("currentUser")).data;
+      this.currentUser = JSON.parse(localStorage.getItem("currentUser"));
     }
 
     console.log("初始化");

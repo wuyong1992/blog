@@ -48,15 +48,15 @@ export class UserService {
     data.append("password", user.password);
     return this.http.post(this.userLoginURL, data)
       .map(res => {
-        let user = res.json();
-        console.log("user object =>" + user);
+        let user = res.json().data;
+        console.log("user object =>" + JSON.stringify(user));
         // console.log("user data =>" + res.json().data.status);
         if (user) {
           localStorage.setItem("currentUser", JSON.stringify(user));
           //一定得是user.data,这返回的才是user对象
-          this.subject.next(Object.assign({}, user.data));
+          this.subject.next(Object.assign({}, user));
 
-          console.log(localStorage.getItem("currentUser"));
+          console.log("currentUser"+localStorage.getItem("currentUser"));
           this.toastr.success("登陆成功", "系统提示", {toastLife: 1500});
           this.router.navigateByUrl("home");
         }

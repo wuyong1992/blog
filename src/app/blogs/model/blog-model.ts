@@ -10,4 +10,5 @@ export class Blog {
   imgUrl: string;  //图片链接
   intro: string;   //简介
   content: string; //内容
+  authorId: number; //所属作者id
 }

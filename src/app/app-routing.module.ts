@@ -8,6 +8,7 @@ import {BlogDetailsComponent} from "./blog-details/blog-details.component";
 import {NgModule} from "@angular/core";
 import {UserRegisterComponent} from "./user/user-register/user-register.component";
 import {UserLoginComponent} from "./user/user-login/user-login.component";
+import {LoginGuard} from "./RoutingGuard/login-guard";
 
 
 /*const routeConfig: Routes = [
@@ -23,13 +24,13 @@ const routeConfig: Routes = [
   {path:'login',loadChildren:'./user/user.module#UserModule'}*/
   {path:'register',component:UserRegisterComponent},
   {path:'login',component:UserLoginComponent},
-  {path:'coding',loadChildren:'./blogs/blogs.module#BlogsModule'}
+  {path:'coding',loadChildren:'./blogs/blogs.module#BlogsModule',canActivate:[LoginGuard]}
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routeConfig)],
   exports: [RouterModule],
-  providers: []
+  providers: [LoginGuard]
 })
 export class AppRoutingModule {
 }
