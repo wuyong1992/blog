@@ -59,6 +59,8 @@ export class UserService {
           console.log("currentUser"+localStorage.getItem("currentUser"));
           this.toastr.success("登陆成功", "系统提示", {toastLife: 1500});
           this.router.navigateByUrl("home");
+        }else {
+          this.toastr.error("登陆失败", "系统提示", {toastLife: 1500});
         }
         return res;
       }).subscribe(
