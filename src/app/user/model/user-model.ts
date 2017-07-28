@@ -11,4 +11,5 @@ export class User{
   password: string;
   status: number;
   role: number;
+  created: Date;
 }

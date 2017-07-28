@@ -1,6 +1,6 @@
 import {Injectable, ViewContainerRef} from '@angular/core';
 import {User} from "../model/user-model";
-import {Http, URLSearchParams} from "@angular/http";
+import {Http, URLSearchParams, Headers} from "@angular/http";
 import {Observable} from "rxjs/Observable";
 import 'rxjs/Rx';
 import {Router} from "@angular/router";
@@ -33,11 +33,13 @@ export class UserService {
   //注册
   public register(user: User) {
     console.log("发送http.post请求");
-    let data = new URLSearchParams();
+    /*let data = new URLSearchParams();
     data.append("username", user.username);
     data.append("nickname", user.nickname);
-    data.append("password", user.password);
-    return this.http.post(this.userRegisterURL, data).map(res => res.json());
+    data.append("password", user.password);*/
+    let header = new Headers({'Content-Type': 'application/json'});
+    //return this.http.post(this.userRegisterURL, data).map(res => res.json());
+    return this.http.post(this.userRegisterURL, JSON.stringify(user), {headers: header});
   }
 
   //登录
@@ -56,11 +58,11 @@ export class UserService {
           //一定得是user.data,这返回的才是user对象
           this.subject.next(Object.assign({}, user));
 
-          console.log("currentUser"+localStorage.getItem("currentUser"));
+          console.log("currentUser" + localStorage.getItem("currentUser"));
           this.toastr.success("登陆成功", "系统提示", {toastLife: 1500});
           this.router.navigateByUrl("home");
-        }else {
-          this.toastr.error("登陆失败", "系统提示", {toastLife: 1500});
+        } else {
+          this.toastr.error(res.json().msg+"", "系统提示", {toastLife: 2500});
         }
         return res;
       }).subscribe(

@@ -29,6 +29,7 @@ export class UserRegisterComponent implements OnInit {
   }
 
   onSubmit() {
+    //也可以通过ngModel双向绑定
     this.user = this.userForm.value;
     console.log(this.user);
     console.log("开始调用service");
@@ -41,7 +42,8 @@ export class UserRegisterComponent implements OnInit {
           if (data.status == 0) {
             //注册成功后，跳转值登录页面
             //TODO 注册成功后，应该自动登录，跳转值首页
-            this.router.navigateByUrl("login");
+            this.toastr.success("注册成功！", "系统提示", {toastLife: 1000});
+            this.router.navigateByUrl("home");
           } else {
             this.toastr.error("注册失败，请重新提交", "系统提示", {toastLife: 1000});
           }
