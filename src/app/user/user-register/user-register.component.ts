@@ -71,7 +71,6 @@ export class UserRegisterComponent implements OnInit {
     this.userForm = this.fb.group({
       //['默认值',[校验器,校验器2,...]]
       mobile: ['', mobileValidator],
-      nickname: [''],
       username: ['', [Validators.required, Validators.minLength(6)]],
       password: ['']
     })

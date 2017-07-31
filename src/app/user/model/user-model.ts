@@ -4,10 +4,10 @@
  * 用户类
  */
 
-export class User{
+export class User {
   id: number;
+  mobile: number;
   username: string;
-  nickname: string;
   password: string;
   status: number;
   role: number;
