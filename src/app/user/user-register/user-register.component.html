@@ -1,14 +1,18 @@
-<form [formGroup]="userForm" class="form-horizontal" (submit)="onSubmit()">
+<form [formGroup]="userForm" class="form-horizontal" (submit)="onSubmit()" novalidate>
   <!--登录用户名-->
 
 
-  <div class="form-group">
+  <div class="form-group" >
     <label for="RegisterUserMobile" class="col-sm-2 control-label">mobile</label>
     <div class="col-sm-10">
       <input type="text" class="form-control" id="RegisterUserMobile"
-             placeholder="手机号,登录账号" formControlName="mobile">
+             placeholder="手机号,登录账号" formControlName="mobile"
+             [class.hasError]="userForm.get('mobile').invalid && userForm.get('mobile').touched">
       <div [hidden]="userForm.get('mobile').valid || userForm.get('mobile').untouched">
-        <span class="help-block" [class.hidden]="!userForm.hasError('mobile','mobile')">请填入正确格式的手机号码</span>
+        <span class="help-block" [class.hidden]="!userForm.hasError('mobile','mobile')">
+          {{userForm.getError('mobile','mobile')?.msg}}
+        </span>
+
       </div>
     </div>
   </div>
@@ -38,7 +42,7 @@
     </div>
   </div>
 
-
+  <!--password-->
   <div class="form-group">
     <label for="RegisterPassword" class="col-sm-2 control-label">passowrd</label>
     <div class="col-sm-10">
@@ -46,9 +50,15 @@
              placeholder="将作为登录密码" formControlName="password">
     </div>
   </div>
+
+
   <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
       <button type="submit" class="btn btn-default">注册</button>
     </div>
   </div>
 </form>
+
+<div>
+  {{userForm.status}}
+</div>

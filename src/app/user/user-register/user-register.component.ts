@@ -1,10 +1,12 @@
 import {Component, OnInit, ViewContainerRef} from '@angular/core';
 import {UserService} from "../service/user.service";
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {User} from "../model/user-model";
 import {ActivatedRoute, Router} from "@angular/router";
 import {ToastsManager} from "ng2-toastr";
 import {mobileValidator} from "../../validator/custom-validators";
+import {Http, URLSearchParams} from "@angular/http";
+import {Observable} from "rxjs/Observable";
 
 @Component({
   selector: 'app-user-register',
@@ -13,6 +15,7 @@ import {mobileValidator} from "../../validator/custom-validators";
 })
 export class UserRegisterComponent implements OnInit {
 
+  public validateMobile = "http://localhost:8080/user/validateMobile";
   public userForm: FormGroup;
   public user: User;
 
@@ -20,7 +23,8 @@ export class UserRegisterComponent implements OnInit {
               private fb: FormBuilder,
               public router: Router,
               private toastr: ToastsManager,
-              private vcr: ViewContainerRef) {
+              private vcr: ViewContainerRef,
+              private http: Http) {
     this.toastr.setRootViewContainerRef(vcr);
     this.builder()
   }
@@ -70,9 +74,31 @@ export class UserRegisterComponent implements OnInit {
   builder(): void {
     this.userForm = this.fb.group({
       //['默认值',[校验器,校验器2,...]]
-      mobile: ['', mobileValidator],
+      mobile: ['', mobileValidator, this.mobileAsyncValidator],
       username: ['', [Validators.required, Validators.minLength(6)]],
       password: ['']
     })
   }
+
+//异步校验，手机号是否已经被注册
+  mobileAsyncValidator(control: FormControl): any {
+
+    let flag = false;
+
+    let data = new URLSearchParams();
+    data.append("mobile", control.value);
+    this.http.post(this.validateMobile, data)
+      .subscribe(
+        data => {
+          console.log(data);
+        }
+      );
+
+    var myreg = /^1[3|4|5|8][0-9]\d{8}$/;
+    let valid = myreg.test(control.value);
+    // console.log("mobile校验结果:" + valid);
+    return Observable.of(valid ? null : {mobile: {msg: "异步校验"}}).delay(2000);
+  }
+
+
 }
