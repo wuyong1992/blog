@@ -8,6 +8,7 @@ import {mobileValidator} from "../../validator/custom-validators";
 import {Http, URLSearchParams, Headers} from "@angular/http";
 import 'rxjs/Rx';
 import {Observable} from "rxjs/Observable";
+import {ServerResponse} from "../../server-response";
 
 @Component({
   selector: 'app-user-register',
@@ -19,6 +20,7 @@ export class UserRegisterComponent implements OnInit {
   public validateMobile = "http://localhost:8080/user/validateMobile";
   public userForm: FormGroup;
   public user: User;
+  public serverResponse: ServerResponse;
 
   constructor(private userService: UserService,
               private fb: FormBuilder,
@@ -43,31 +45,45 @@ export class UserRegisterComponent implements OnInit {
       console.log("开始调用service");
       /*this.user = user;
        console.log(this.user)*/
-      this.userService.register(this.user)
-        .subscribe(
-          (data) => {
-            // console.log(data);
-            // console.log(JSON.parse(JSON.stringify(data))._body);
-            // serverResponse 才是我想返回的数据
-            let serverResponse = JSON.parse(JSON.stringify(data))._body;
-            if (serverResponse.status == 0) {
-              //注册成功后，跳转值登录页面
-              //TODO 注册成功后，应该自动登录，跳转值首页
-              this.toastr.success("注册成功！", "系统提示", {toastLife: 1500});
-              //this.router.navigateByUrl("home");
-            } else {
-              this.toastr.error(serverResponse.msg + "", "系统提示", {toastLife: 1500});
-            }
-          },
-          error => {
-            this.toastr.error(error.message+ "", "系统提示", {toastLife: 1500})
+      this.userService.register(this.user).map(res => {
+        console.log("res===>" + JSON.stringify(res.json()))
+        this.serverResponse = res.json();
+        console.log(this.serverResponse.msg);
+        if (this.serverResponse.status == 0) {
+          //注册成功后，跳转值登录页面
+          //TODO 注册成功后，应该自动登录，跳转值首页
+          this.toastr.success("注册成功！", "系统提示", {toastLife: 1500});
+          //this.router.navigateByUrl("home");
+        } else {
+          this.toastr.error(this.serverResponse.msg + "", "系统提示", {toastLife: 1500});
+        }
+      }).subscribe();
+      /*.subscribe(
+        (data) => {
+          console.log(data);
+          console.log(JSON.parse(JSON.stringify(data))._body);
+          // serverResponse 才是我想返回的数据
+          this.serverResponse = JSON.parse(JSON.stringify(data))._body;
+          console.log(this.serverResponse);
+          console.log(this.serverResponse.msg);
+          if (this.serverResponse.status == 0) {
+            //注册成功后，跳转值登录页面
+            //TODO 注册成功后，应该自动登录，跳转值首页
+            this.toastr.success("注册成功！", "系统提示", {toastLife: 1500});
+            //this.router.navigateByUrl("home");
+          } else {
+            this.toastr.error(this.serverResponse.msg + "", "系统提示", {toastLife: 1500});
           }
-        );
+        },
+        error => {
+          this.toastr.error(error.message+ "", "系统提示", {toastLife: 1500})
+        }
+      );*/
       console.log("调用service结束");
     }
     else {
       this.toastr.error("请检查输入项", "系统提示", {toastLife: 3000});
-      console.log(JSON.stringify(this.userForm.get("username").errors));
+      //console.log(JSON.stringify(this.userForm.get("username").errors));
     }
   }
 
@@ -77,8 +93,8 @@ export class UserRegisterComponent implements OnInit {
       //['默认值',[校验器,校验器2,...],异步校验]
       // mobile: ['', mobileValidator, this.mobileAsyncValidator],
       mobile: ['', mobileValidator],
-      username: ['', [Validators.required, Validators.minLength(6),Validators.maxLength(12)]],
-      password: ['',[Validators.required,Validators.minLength(6),Validators.maxLength(12)]]
+      username: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(12)]],
+      password: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(12)]]
     })
   }
 
@@ -103,3 +119,6 @@ export class UserRegisterComponent implements OnInit {
   }*/
 
 }
+
+
+
