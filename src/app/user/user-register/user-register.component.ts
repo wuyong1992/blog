@@ -21,6 +21,7 @@ export class UserRegisterComponent implements OnInit {
   public userForm: FormGroup;
   public user: User;
   public serverResponse: ServerResponse;
+  public registered: boolean = false;
 
   constructor(private userService: UserService,
               private fb: FormBuilder,
@@ -45,40 +46,23 @@ export class UserRegisterComponent implements OnInit {
       console.log("开始调用service");
       /*this.user = user;
        console.log(this.user)*/
-      this.userService.register(this.user).map(res => {
-        console.log("res===>" + JSON.stringify(res.json()))
-        this.serverResponse = res.json();
-        console.log(this.serverResponse.msg);
-        if (this.serverResponse.status == 0) {
-          //注册成功后，跳转值登录页面
-          //TODO 注册成功后，应该自动登录，跳转值首页
-          this.toastr.success("注册成功！", "系统提示", {toastLife: 1500});
-          //this.router.navigateByUrl("home");
-        } else {
-          this.toastr.error(this.serverResponse.msg + "", "系统提示", {toastLife: 1500});
-        }
-      }).subscribe();
-      /*.subscribe(
-        (data) => {
-          console.log(data);
-          console.log(JSON.parse(JSON.stringify(data))._body);
-          // serverResponse 才是我想返回的数据
-          this.serverResponse = JSON.parse(JSON.stringify(data))._body;
-          console.log(this.serverResponse);
-          console.log(this.serverResponse.msg);
-          if (this.serverResponse.status == 0) {
-            //注册成功后，跳转值登录页面
-            //TODO 注册成功后，应该自动登录，跳转值首页
-            this.toastr.success("注册成功！", "系统提示", {toastLife: 1500});
-            //this.router.navigateByUrl("home");
-          } else {
-            this.toastr.error(this.serverResponse.msg + "", "系统提示", {toastLife: 1500});
+      this.userService.register(this.user)
+        .subscribe(
+          res => {
+            this.serverResponse = res;
+            if (this.serverResponse.status == 0) {
+              //注册成功后，跳转值登录页面
+              //TODO 注册成功后，应该自动登录，跳转值首页
+              this.toastr.success("注册成功！", "系统提示", {toastLife: 1500});
+              this.router.navigateByUrl("home");
+            } else {
+              this.toastr.error(this.serverResponse.msg + "", "系统提示", {toastLife: 1500});
+            }
+          },
+          error => {
+            this.toastr.error(error.message + "", "系统提示", {toastLife: 1500})
           }
-        },
-        error => {
-          this.toastr.error(error.message+ "", "系统提示", {toastLife: 1500})
-        }
-      );*/
+        );
       console.log("调用service结束");
     }
     else {

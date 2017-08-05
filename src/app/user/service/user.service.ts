@@ -1,6 +1,6 @@
 import {Injectable, ViewContainerRef} from '@angular/core';
 import {User} from "../model/user-model";
-import {Http, URLSearchParams, Headers} from "@angular/http";
+import {Http, URLSearchParams, Headers, Response} from "@angular/http";
 import {Observable} from "rxjs/Observable";
 import 'rxjs/Rx';
 import {Router} from "@angular/router";
@@ -39,11 +39,14 @@ export class UserService {
     data.append("password", user.password);*/
     let header = new Headers({'Content-Type': 'application/json'});
     //return this.http.post(this.userRegisterURL, data).map(res => res.json());
-    return this.http.post(this.userRegisterURL, JSON.stringify(user), {headers: header});
+    return this.http
+      .post(this.userRegisterURL, JSON.stringify(user), {headers: header})
+      .map(this.extractData)
+      .catch(this.handleError);
   }
 
-  //登录
-  public login(user: User) {
+  //账号登录获取token
+  /*public login(user: User) {
     console.log("登录");
     let data = new URLSearchParams();
     data.append("username", user.username);
@@ -62,7 +65,7 @@ export class UserService {
           this.toastr.success("登陆成功", "系统提示", {toastLife: 1500});
           this.router.navigateByUrl("home");
         } else {
-          this.toastr.error(res.json().msg+"", "系统提示", {toastLife: 2500});
+          this.toastr.error(res.json().msg + "", "系统提示", {toastLife: 2500});
         }
         return res;
       }).subscribe(
@@ -75,11 +78,22 @@ export class UserService {
           this.toastr.error("登陆失败", "系统提示", {toastLife: 1500});
         }
       );
+  }*/
+  public login(user: User) {
+    let data = new URLSearchParams();
+    data.append("mobile", user.mobile + "");
+    data.append("password", user.password);
+    return this.http.post(this.userLoginURL, data)
+      .map(this.extractData)
+      .catch(this.handleError)
   }
+
+  //发送token，获取当前用户信息
+
 
   //退出
   public logout() {
-    //远端session中删除currentUser
+    /*//远端session中删除currentUser
     let data = new URLSearchParams();
     this.http.post(this.userLogoutURL, data).map(res => res.json())
       .subscribe(
@@ -99,18 +113,45 @@ export class UserService {
           console.log(error2.message);
           this.toastr.error("退出失败", "系统提示", {toastLife: 1500});
         }
-      );
+      );*/
+
+    localStorage.setItem("currentUser", "");
+    localStorage.setItem("token", "");
   }
 
   //是否登录
-  public isLogin() {
-    this.http.get(this.userIsLoginURL).map(res => res.json())
+  public checkLogin() {
+    /*this.http.get(this.userIsLoginURL).map(res => res.json())
       .subscribe(
         data => {
           return data.status == 0;
         }
-      )
+      )*/
+    if (localStorage.getItem("currentUser") != "" && localStorage.getItem("token") != "") {
+      return true;
+    } else {
+      return false;
+    }
   }
 
+
+  //从可观察对象中提取数据
+  private extractData(res: Response) {
+    return res.json();
+  }
+
+  //http异常捕捉
+  private handleError(error: Response | any) {
+    let errMsg: string;
+    if (error instanceof Response) {
+      const body = error.json() || '';
+      const err = body.error || JSON.stringify(body);
+      errMsg = `${error.status} - ${error.statusText || ''} ${err}`;
+    } else {
+      errMsg = error.message ? error.message : error.toString();
+    }
+    console.error(errMsg);
+    return Observable.throw(errMsg);
+  }
 
 }

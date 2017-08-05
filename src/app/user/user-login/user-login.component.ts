@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup} from "@angular/forms";
 import {User} from "../model/user-model";
 import {UserService} from "../service/user.service";
 import {Router} from "@angular/router";
+import {ToastsManager} from "ng2-toastr";
 
 
 @Component({
@@ -19,7 +20,8 @@ export class UserLoginComponent implements OnInit {
 
   constructor(private fb: FormBuilder,
               private userService: UserService,
-              private router: Router) {
+              private router: Router,
+              private toastr: ToastsManager) {
   }
 
   ngOnInit() {
@@ -39,7 +41,17 @@ export class UserLoginComponent implements OnInit {
   onLogin() {
     this.user = this.userForm.value;
 
-    this.userService.login(this.user);
+    this.userService.login(this.user).subscribe(
+      data => {
+        this.currentUser = data.data;
+        if (this.currentUser.status == 0) {
+          localStorage.setItem("currentUser", JSON.stringify(this.currentUser));
+          localStorage.setItem("token", "");
+          this.toastr.success("登陆成功", "系统提示", {toastLife: 1500});
+          this.router.navigateByUrl("home");
+        }
+      }
+    );
 
   }
 

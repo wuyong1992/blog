@@ -6,7 +6,7 @@
       <label for="LoginUserName" class="col-sm-2 control-label">账号</label>
       <div class="col-sm-10">
         <input type="text" class="form-control" id="LoginUserName"
-               placeholder="请输入用户名" formControlName="username">
+               placeholder="请输入手机号" formControlName="username">
       </div>
     </div>
 
@@ -26,6 +26,6 @@
   </form>
 </div>
 
-<div *ngIf="currentUser?.nickname">
+<div *ngIf="currentUser?.username">
   已经登录
 </div>
