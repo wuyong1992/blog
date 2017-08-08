@@ -33,14 +33,13 @@ export class UserService {
   //注册
   public register(user: User) {
     console.log("发送http.post请求");
-    /*let data = new URLSearchParams();
-    data.append("username", user.username);
-    data.append("nickname", user.nickname);
-    data.append("password", user.password);*/
-    let header = new Headers({'Content-Type': 'application/json'});
+    let data = new URLSearchParams();
+    data.append("mobile", user.mobile+"");
+    data.append("password", user.password);
+    //let header = new Headers({'Content-Type': 'application/json'});
     //return this.http.post(this.userRegisterURL, data).map(res => res.json());
     return this.http
-      .post(this.userRegisterURL, JSON.stringify(user), {headers: header})
+      .post(this.userRegisterURL, data)
       .map(this.extractData)
       .catch(this.handleError);
   }

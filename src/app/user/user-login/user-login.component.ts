@@ -33,19 +33,21 @@ export class UserLoginComponent implements OnInit {
 
   builder(): void {
     this.userForm = this.fb.group({
-      username: [''],
+      mobile: [''],
       password: ['']
     })
   }
 
   onLogin() {
     this.user = this.userForm.value;
-
+    console.log(this.user);
     this.userService.login(this.user).subscribe(
       data => {
-        this.currentUser = data.data;
-        if (this.currentUser.status == 0) {
-          localStorage.setItem("currentUser", JSON.stringify(this.currentUser));
+        console.log(data);
+        //this.currentUser = data.data;
+        //console.log(this.currentUser);
+        if (data.status == 0) {
+          //localStorage.setItem("currentUser", JSON.stringify(this.currentUser));
           localStorage.setItem("token", "");
           this.toastr.success("登陆成功", "系统提示", {toastLife: 1500});
           this.router.navigateByUrl("home");
