@@ -9,7 +9,7 @@ export class BlogService {
 
   public blog: Blog;
 
-  public blogSaveURL = "http://localhost:8080/blog/blogSave";
+  public blogSaveURL = "http://localhost:8080/blog/rest/blogSave";
 
 
   constructor(private http: Http,
@@ -23,13 +23,13 @@ export class BlogService {
   public save(blog: Blog) {
     console.log("发送blog请求");
 
-    let data = new URLSearchParams();
+    /*let data = new URLSearchParams();
     data.append("title", blog.title);
     data.append("intro", blog.intro);
     data.append("content", blog.content);
-    data.append("authorId", blog.authorId + "");
+    data.append("authorId", blog.authorId + "");*/
 
-    return this.http.post(this.blogSaveURL, data)
+    return this.http.post(this.blogSaveURL, JSON.stringify(blog))
       .map(res => {
         let data = res.json();
         console.log("data object =>" + data);

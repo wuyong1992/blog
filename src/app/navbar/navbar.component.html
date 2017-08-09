@@ -41,11 +41,11 @@
 
       <!--如果当前用户为空，则显示登录或者注册，如果不为空，则显示用户名-->
       <ul class="nav navbar-nav navbar-right" *ngIf="!currentUser?.username">
-        <li class="">
-          <a href="#" routerLink="login">Login</a>
-        </li>
         <li>
           <a routerLink="register">register</a>
+        </li>
+        <li class="">
+          <a href="#" routerLink="login">Login</a>
         </li>
       </ul>
       <!--当前用户已登录-->

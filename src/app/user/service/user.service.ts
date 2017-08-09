@@ -15,9 +15,8 @@ export class UserService {
   public userLoginURL = "http://localhost:8080/user/login";
   public userIsLoginURL = "http://localhost:8080/user/isLogin";
   public userLogoutURL = "http://localhost:8080/user/logout";
+  public getCurrentUserWithTokenUrl = "http://localhost:8080/user/rest/getCurrentUser";
   public subject: Subject<User> = new Subject<User>();
-
-  // public currentUser: User = new User;
 
   public get currentUser(): Observable<User> {
     return this.subject.asObservable();
@@ -34,7 +33,7 @@ export class UserService {
   public register(user: User) {
     console.log("发送http.post请求");
     let data = new URLSearchParams();
-    data.append("mobile", user.mobile+"");
+    data.append("mobile", user.mobile + "");
     data.append("password", user.password);
     //let header = new Headers({'Content-Type': 'application/json'});
     //return this.http.post(this.userRegisterURL, data).map(res => res.json());
@@ -88,7 +87,18 @@ export class UserService {
   }
 
   //发送token，获取当前用户信息
-
+  public getCurrentUserWithToken(token: string) {
+    let heardToken = new Headers({"Authorization": "Bearer " + token})
+    return this.http
+      .get(this.getCurrentUserWithTokenUrl, {headers: heardToken})
+      .map(
+        res => {
+          let user = res.json().data;
+          this.subject.next(Object.assign({}, user));
+          return res.json();
+        })
+      .catch(this.handleError);
+  }
 
   //退出
   public logout() {
@@ -116,6 +126,7 @@ export class UserService {
 
     localStorage.setItem("currentUser", "");
     localStorage.setItem("token", "");
+    this.subject.next(Object.assign({}));
   }
 
   //是否登录

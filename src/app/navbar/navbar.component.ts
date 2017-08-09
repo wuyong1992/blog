@@ -15,15 +15,16 @@ export class NavbarComponent implements OnInit, DoCheck {
   }
 
   public currentUser: User;
+  public service: UserService;
 
   constructor(private userService: UserService,
               private router: Router,
-              private toastr: ToastsManager,) {
+              private toastr: ToastsManager) {
 
   }
 
   ngOnInit() {
-    if (JSON.parse(localStorage.getItem("currentUser"))) {
+    if (localStorage.getItem("currentUser") != null && localStorage.getItem("currentUser") != "") {
       this.currentUser = JSON.parse(localStorage.getItem("currentUser"));
     }
 
@@ -33,14 +34,13 @@ export class NavbarComponent implements OnInit, DoCheck {
       .subscribe(
         data => {
           this.currentUser = data;
-          console.log("订阅的data:\t" + data)
         }
       )
   }
 
   doLogout() {
     this.userService.logout();
-    // this.toast.success("成功退出", "系统提示");
+    this.toastr.success("退出成功", "系统提示", {toastLife: 1000});
     this.router.navigateByUrl("home");
   }
 

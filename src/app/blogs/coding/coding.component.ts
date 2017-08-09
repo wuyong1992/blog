@@ -23,17 +23,17 @@ export class CodingComponent implements OnInit {
 
   constructor(private fb: FormBuilder,
               private router: Router,
-              private blogService:BlogService,
+              private blogService: BlogService,
               private toastr: ToastsManager) {
     this.froala = "";
   }
 
   ngOnInit() {
     this.builder();
-    if (!localStorage.getItem("currentUser")) {
+    if (localStorage.getItem("currentUser") == "") {
       this.toastr.warning("请先登录！", "系统提示");
       this.router.navigateByUrl("login");
-    }else {
+    } else {
       this.currentUser = JSON.parse(localStorage.getItem("currentUser"));
     }
   }
@@ -52,7 +52,7 @@ export class CodingComponent implements OnInit {
   }
 
   //提交
-  onSubmit(){
+  onSubmit() {
     this.blog = this.blogForm.value;
     this.blog.content = this.froala;
     this.blog.authorId = this.currentUser.id;
