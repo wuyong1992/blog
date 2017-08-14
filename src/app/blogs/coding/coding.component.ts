@@ -20,12 +20,14 @@ export class CodingComponent implements OnInit {
   public blogForm: FormGroup;
   public blog: Blog;
   public currentUser: User;
+  public token: string;
 
   constructor(private fb: FormBuilder,
               private router: Router,
               private blogService: BlogService,
               private toastr: ToastsManager) {
     this.froala = "";
+    this.token = localStorage.getItem("token");
   }
 
   ngOnInit() {
@@ -61,7 +63,23 @@ export class CodingComponent implements OnInit {
       this.toastr.warning("请先登录！", "系统提示");
       this.router.navigateByUrl("login");
     }
-    this.blogService.save(this.blog);
+    this.blogService.blogSave(this.blog, this.token)
+      .subscribe(
+        data => {
+          if (data.status == 0) {
+            this.toastr.success("上传成功！", "系统提示", 1500);
+            this.router.navigateByUrl("home");
+          }
+          else {
+            this.toastr.warning("您需要重新登录！", "系统提示", 2500);
+            this.router.navigateByUrl("login");
+          }
+        },
+        error2 => {
+          console.log(error2.message);
+          this.toastr.error(error2.message + "", "系统提示", 2500);
+        }
+      );
   }
 
 }

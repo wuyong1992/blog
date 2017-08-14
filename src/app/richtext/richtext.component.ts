@@ -41,7 +41,7 @@ export class RichtextComponent implements OnInit {
       },
       // 上传图片，视频等稳健配置
       imageAllowedTypes: ['jpg', 'jpeg', 'png', 'gif', 'svg+xml'],
-      imageUploadURL: "http://localhost:8080/blog/rest/editorImgUpload",
+      imageUploadURL: "http://localhost:8080/blog/editorImgUpload",
       imageUploadParams: {},//接口其他传参,默认为空对象{},
       imageMaxSize:1024*1024*10,
       imagePaste:true,
@@ -54,7 +54,7 @@ export class RichtextComponent implements OnInit {
       fileAllowedTypes: ['*'],
       fileMaxSize: 1073741824,  //1G 字节为单位
       fileUploadMethod: 'POST',
-      fileUploadURL: 'http://localhost:8080/blog/rest/editorImgUpload',
+      fileUploadURL: 'http://localhost:8080/blog/editorImgUpload',
 
       //事件
       events: {

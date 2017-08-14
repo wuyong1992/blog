@@ -16,14 +16,14 @@ export class LoginGuard implements CanActivate {
   }
 
   canActivate(): boolean {
-    if (localStorage.getItem("currentUser")) {
+    if (localStorage.getItem("currentUser") != "" && localStorage.getItem("token") != "") {
       //已经登录
       //console.log("用户已登录");
       return true;
     } else {
       //并没有登录
       //console.log("用户未登录");
-      this.toastr.warning("请先登录!","系统提示:");
+      this.toastr.warning("请先登录!", "系统提示:");
       this.router.navigateByUrl("login");
       return false;
     }

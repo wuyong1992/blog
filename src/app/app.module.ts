@@ -4,7 +4,6 @@ import {NgModule} from '@angular/core';
 import {AppComponent} from './app.component';
 import {HeaderComponent} from './header/header.component';
 import {NavbarComponent} from './navbar/navbar.component';
-import {BlogDetailsComponent} from './blog-details/blog-details.component';
 import {FooterComponent} from './footer/footer.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {HttpModule} from "@angular/http";
@@ -20,6 +19,7 @@ import {FileUploadModule} from "ng2-file-upload";
 import {CommonModule} from "@angular/common";
 import {BlogService} from "./blogs/service/blog.service";
 import {UserModule} from "./user/user.module";
+import {HomeService} from "./home/service/home.service";
 
 
 /*const routeConfig: Routes = [
@@ -32,7 +32,6 @@ import {UserModule} from "./user/user.module";
     AppComponent,
     HeaderComponent,
     NavbarComponent,
-    BlogDetailsComponent,
     FooterComponent,
     UserRegisterComponent,
     UserLoginComponent
@@ -52,8 +51,9 @@ import {UserModule} from "./user/user.module";
   ],
   providers: [
     UserService,
-    {provide:ToastOptions,useClass:ToastOptionSelf},
-    BlogService
+    {provide: ToastOptions, useClass: ToastOptionSelf},
+    BlogService,
+    HomeService
   ],
   bootstrap: [AppComponent]
 })

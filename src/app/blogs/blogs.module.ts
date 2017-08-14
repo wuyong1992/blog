@@ -9,6 +9,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {RichtextComponent} from "../richtext/richtext.component";
 import {FileuploadComponent} from "../fileupload/fileupload.component";
 import { BlogsComponent } from './blogs.component';
+import { BlogDetailComponent } from './blog-detail/blog-detail.component';
 
 @NgModule({
   imports: [
@@ -20,6 +21,6 @@ import { BlogsComponent } from './blogs.component';
     FroalaViewModule.forRoot(),
     FileUploadModule
   ],
-  declarations: [CodingComponent,RichtextComponent,FileuploadComponent, BlogsComponent]
+  declarations: [CodingComponent,RichtextComponent,FileuploadComponent, BlogsComponent, BlogDetailComponent]
 })
 export class BlogsModule { }

@@ -40,7 +40,6 @@ export class FileuploadComponent implements OnInit {
   //本地预览
   selectedFileOnChanged(event: any) {
     this.show = !this.show;
-
     let files = event.target.files;
     console.log(event);
     for (let i = 0; i < files.length; i++) {
@@ -74,6 +73,7 @@ export class FileuploadComponent implements OnInit {
     this.show = !this.show;
   }
 
+  //上传blog简介图片
   upload() {
     console.log("上传");
     this.uploader.queue[0].onError = (response: string, status: number, headers: ParsedResponseHeaders) => {
@@ -86,8 +86,6 @@ export class FileuploadComponent implements OnInit {
       }
     };
     this.uploader.queue[0].upload();
-
-
     console.log("上传完毕")
   }
 
