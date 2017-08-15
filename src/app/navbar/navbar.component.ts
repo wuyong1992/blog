@@ -1,6 +1,6 @@
 import {Component, DoCheck, Input, OnChanges, OnInit, SimpleChanges, ViewContainerRef} from '@angular/core';
 import {UserService} from "../user/service/user.service";
-import {User} from "../user/model/user-model";
+import {User} from "../model/user-model";
 // import {ToastsManager} from "ng2-toastr";
 import {Router} from "@angular/router";
 import {ToastsManager} from "ng2-toastr";
@@ -27,8 +27,6 @@ export class NavbarComponent implements OnInit, DoCheck {
     if (localStorage.getItem("currentUser") != null && localStorage.getItem("currentUser") != "") {
       this.currentUser = JSON.parse(localStorage.getItem("currentUser"));
     }
-
-    console.log("初始化");
 
     this.userService.currentUser
       .subscribe(

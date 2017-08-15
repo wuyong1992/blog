@@ -1,37 +1,45 @@
-<!--博客详情-->
-<div class="blog-main">
-  <div class="heading-blog">
-    The security is main concern while developing applications
-  </div>
-  <img src="../../../assets/img/1.jpg" class="img-responsive img-rounded"/>
-  <div class="blog-info">
-    <span class="label label-primary">Posted on 26th November 2014</span>
-    <span class="label label-success">In Technology</span>
-    <span class="label label-danger">By Jhon</span>
-    <span class="label label-info">
-                                <i class="fa fa-thumbs-up"></i>+ 10
-                        <i class="fa fa-thumbs-down"></i>-3
-                            </span>
-  </div>
-  <div class="blog-txt">
-    <!--富文本传入-->
-    正文！
-    <br>
-    这里由富文本传入内容
-    <br>
-    AngularJS2 是一款开源JavaScript库，由Google维护，用来协助单一页面应用程序运行。
-    AngularJS2 是 Angular 1.x 的升级版本，性能上得到显著的提高，能很好的支持 Web 开发组件。
-    <br>
-    AngularJS2 是一款开源JavaScript库，由Google维护，用来协助单一页面应用程序运行。
-    AngularJS2 是 Angular 1.x 的升级版本，性能上得到显著的提高，能很好的支持 Web 开发组件。
-    <br>
-    AngularJS2 是一款开源JavaScript库，由Google维护，用来协助单一页面应用程序运行。
-    AngularJS2 是 Angular 1.x 的升级版本，性能上得到显著的提高，能很好的支持 Web 开发组件。
-    <br>
-    AngularJS2 是一款开源JavaScript库，由Google维护，用来协助单一页面应用程序运行。
-    AngularJS2 是 Angular 1.x 的升级版本，性能上得到显著的提高，能很好的支持 Web 开发组件。
+<div *ngIf="!blog?.imgUrl">
+  <div class="blog-main">
+    <div class="lds-css">
+      <div class="lds-gear" style="width: 100%;height:100%">
+        <div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
+<!--博客详情-->
+<div *ngIf="blog?.imgUrl">
+<div class="blog-main">
+  <div class="heading-blog">
+    {{blog?.title}}
+  </div>
+  <img *ngIf="blog?.imgUrl" src="{{blog?.imgUrl}}" class="img-responsive img-rounded"/>
+  <img *ngIf="!blog?.imgUrl" src="http://fakeimg.pl/640x320/?text=HaHaHa&font=lobster" class="img-responsive img-rounded"/>
+  <div class="blog-info">
+    <span class="label label-primary">{{blog?.updateTime | date:"yyyy-MM-dd hh:mm:ss"}}</span>
+    <!--<span class="label label-success">In Technology</span>-->
+    <span class="label label-danger">{{blog?.authorName}}</span>
+    <!--<span class="label label-info">
+       <i class="fa fa-thumbs-up"></i>+ 10
+       <i class="fa fa-thumbs-down"></i>-3
+    </span>-->
+  </div>
+  <div class="blog-txt">
+    <div [froalaView]="blog?.content"></div>
+  </div>
+
+  <div class="pull-right" [hidden]="!isAuthor">
+    <button type="button" class="btn btn-primary btn-lg">修改</button>
+  </div>
 <!--BLOG MAIN SECTION END-->
 
 <h3><strong>评论 :</strong></h3>
@@ -82,4 +90,5 @@
     </div>
   </li>
 </ul>
-
+</div>
+</div>

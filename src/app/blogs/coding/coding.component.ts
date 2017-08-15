@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {Router} from "@angular/router";
-import {Blog} from "../model/blog-model";
+import {Blog} from "../../model/blog-model";
 import {BlogService} from "../service/blog.service";
-import {User} from "../../user/model/user-model";
+import {User} from "../../model/user-model";
 import {ToastsManager} from "ng2-toastr";
 
 @Component({

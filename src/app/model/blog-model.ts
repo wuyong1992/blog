@@ -12,5 +12,6 @@ export class Blog {
   content: string; //内容
   authorId: number; //所属作者id
   authorName: string;
-  created: Date;  //创建时间
+  createTime: Date;  //创建时间
+  updateTime: Date; //更新时间
 }

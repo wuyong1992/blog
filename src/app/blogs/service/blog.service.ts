@@ -1,20 +1,25 @@
 import {Injectable} from '@angular/core';
-import {Blog} from "../model/blog-model";
+import {Blog} from "../../model/blog-model";
 import {Http, URLSearchParams, Headers, Response} from "@angular/http";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {ToastsManager} from "ng2-toastr";
 import {Observable} from "rxjs/Observable";
+import {environment} from "../../../environments/environment";
 
 @Injectable()
 export class BlogService {
 
   public blog: Blog;
 
-  public blogSaveURL = "http://localhost:8080/blog/rest/blogSave";
+  public blogSaveURL = environment.blogSaveURL;
+  public getAllBlogsUrl = environment.getAllBlogsUrl;
+  public getBlogByIdUrl = environment.getBlogByIdUrl;
+
 
 
   constructor(private http: Http,
               private router: Router,
+              private activatedRoute:ActivatedRoute,
               private toastr: ToastsManager) {
   }
 
@@ -24,7 +29,6 @@ export class BlogService {
     console.log("发送blog请求");
 
     let heard = new Headers({"Authorization": "Bearer " + token, "Content-Type": "application/json"});
-
     /*return this.http.post(this.blogSaveURL, JSON.stringify(blog), {headers: heardToken})
       .map(res => {
         let data = res.json();
@@ -51,6 +55,23 @@ export class BlogService {
       .map(this.extractData)
       .catch(this.handleError)
   }
+
+  //获取所有的blog信息
+  getAllBlogs() {
+    return this.http.get(this.getAllBlogsUrl)
+      .map(this.extractData)
+      .catch(this.handleError)
+  }
+
+  //根据传输的id，来展示不同的blog
+  getBlogById(id:number){
+    let data = new URLSearchParams();
+    data.append("id", id + "");
+    return this.http.post(this.getBlogByIdUrl,data)
+      .map(this.extractData)
+      .catch(this.handleError)
+  }
+
 
   //从可观察对象中提取数据
   private extractData(res: Response) {

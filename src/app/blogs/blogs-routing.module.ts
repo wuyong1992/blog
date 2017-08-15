@@ -3,6 +3,7 @@ import {Routes, RouterModule} from '@angular/router';
 import {CodingComponent} from "./coding/coding.component";
 import {BlogsComponent} from "./blogs.component";
 import {BlogDetailComponent} from "./blog-detail/blog-detail.component";
+import {LoginGuard} from "../RoutingGuard/login-guard";
 
 const routes: Routes = [
   {
@@ -13,10 +14,11 @@ const routes: Routes = [
         path: '',
         component: CodingComponent
       }
-    ]
+    ],
+   canActivate: [LoginGuard]
   },
   {
-    path: "blogDetail/:blogId",
+    path: "blogDetail/:id",
     component: BlogsComponent,
     children: [
       {

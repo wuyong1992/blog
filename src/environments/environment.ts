@@ -4,5 +4,15 @@
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  //user
+  userRegisterURL: "http://localhost:8080/user/register",
+  userLoginURL: "http://localhost:8080/user/login",
+  userIsLoginURL: "http://localhost:8080/user/rest/isLogin",
+  userLogoutURL: "http://localhost:8080/user/logout",
+  getCurrentUserWithTokenUrl: "http://localhost:8080/user/rest/getCurrentUser",
+  //blog
+  getAllBlogsUrl: "http://localhost:8080/blog/getAllBlogs",
+  blogSaveURL: "http://localhost:8080/blog/rest/blogSave",
+  getBlogByIdUrl: "http://localhost:8080/blog/getBlogById"
 };

@@ -1,7 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {HomeService} from "../home/service/home.service";
 import {ToastsManager} from "ng2-toastr";
-import {Blog} from "../blogs/model/blog-model";
+import {Blog} from "../model/blog-model";
+import {BlogService} from "../blogs/service/blog.service";
 
 @Component({
   selector: 'app-single',
@@ -12,16 +13,15 @@ export class SingleComponent implements OnInit {
 
   public blogList: Blog[];
 
-  constructor(private homeService: HomeService,
+  constructor(private blogService: BlogService,
               private  toastr: ToastsManager) {
   }
 
   ngOnInit() {
 
-    this.homeService.getAllBlogs()
+    this.blogService.getAllBlogs()
       .subscribe(
         data => {
-          console.log("blogList====>" + JSON.stringify(data))
           if (data.status == 0) {
             this.blogList = data.data
           }

@@ -1,22 +1,24 @@
 import {Injectable, ViewContainerRef} from '@angular/core';
-import {User} from "../model/user-model";
+import {User} from "../../model/user-model";
 import {Http, URLSearchParams, Headers, Response} from "@angular/http";
 import {Observable} from "rxjs/Observable";
 import 'rxjs/Rx';
 import {Router} from "@angular/router";
 import {Subject} from "rxjs/Subject";
 import {ToastsManager} from "ng2-toastr";
+import {environment} from "../../../environments/environment";
 
 @Injectable()
 export class UserService {
 
   public responseData: Observable<any>;
-  public userRegisterURL = "http://localhost:8080/user/register";
-  public userLoginURL = "http://localhost:8080/user/login";
-  public userIsLoginURL = "http://localhost:8080/user/isLogin";
-  public userLogoutURL = "http://localhost:8080/user/logout";
-  public getCurrentUserWithTokenUrl = "http://localhost:8080/user/rest/getCurrentUser";
+  public userRegisterURL = environment.userRegisterURL;
+  public userLoginURL = environment.userLoginURL;
+  public userIsLoginURL = environment.userIsLoginURL;
+  public userLogoutURL = environment.userLogoutURL;
+  public getCurrentUserWithTokenUrl = environment.getCurrentUserWithTokenUrl;
   public subject: Subject<User> = new Subject<User>();
+  public logined:boolean = false;
 
   public get currentUser(): Observable<User> {
     return this.subject.asObservable();
@@ -137,10 +139,23 @@ export class UserService {
           return data.status == 0;
         }
       )*/
+
     if (localStorage.getItem("currentUser") != "" && localStorage.getItem("token") != "") {
-      return true;
+      let heardToken = new Headers({"Authorization": "Bearer " + localStorage.getItem("token")});
+      this.http.get(this.userIsLoginURL, {headers: heardToken})
+        .map(this.extractData)
+        .catch(this.handleError)
+        .subscribe(
+          data=>{
+            this.logined = data.status == 0;
+          },
+          error2 => {
+            this.logined = false;
+          }
+        );
+      return this.logined;
     } else {
-      return false;
+      return this.logined;
     }
   }
 

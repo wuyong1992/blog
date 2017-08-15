@@ -1,7 +1,7 @@
 import {Component, OnInit, ViewContainerRef} from '@angular/core';
 import {UserService} from "../service/user.service";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
-import {User} from "../model/user-model";
+import {User} from "../../model/user-model";
 import {ActivatedRoute, Router} from "@angular/router";
 import {ToastsManager} from "ng2-toastr";
 import {mobileValidator} from "../../validator/custom-validators";

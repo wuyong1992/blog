@@ -23,7 +23,7 @@ const routeConfig: Routes = [
   // {path:'login',loadChildren:'./user/user.module#UserModule'}
   {path: 'register', component: UserRegisterComponent},
   {path: 'login', component: UserLoginComponent},
-  {path: 'blogs', loadChildren: './blogs/blogs.module#BlogsModule', canActivate: [LoginGuard]}
+  {path: 'blogs', loadChildren: './blogs/blogs.module#BlogsModule'}
 ];
 
 @NgModule({

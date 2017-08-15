@@ -1,21 +1,22 @@
 import {Injectable} from '@angular/core';
-import {Blog} from "../../blogs/model/blog-model";
+import {Blog} from "../../model/blog-model";
 import {Http, Response} from "@angular/http";
 import {Observable} from "rxjs/Observable";
+import {environment} from "../../../environments/environment";
 
 @Injectable()
 export class HomeService {
 
-  private getAllBlogsUrl = "http://localhost:8080/blog/getAllBlogs";
+  // private getAllBlogsUrl = environment.getAllBlogsUrl;
 
   constructor(private http: Http,) {
   }
 
-  getAllBlogs() {
+  /*getAllBlogs() {
     return this.http.get(this.getAllBlogsUrl)
       .map(this.extractData)
       .catch(this.handleError)
-  }
+  }*/
 
 
   //从可观察对象中提取数据
