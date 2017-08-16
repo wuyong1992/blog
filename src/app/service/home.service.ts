@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
-import {Blog} from "../../model/blog-model";
+import {Blog} from "../model/blog-model";
 import {Http, Response} from "@angular/http";
 import {Observable} from "rxjs/Observable";
-import {environment} from "../../../environments/environment";
+import {environment} from "../../environments/environment";
 
 @Injectable()
 export class HomeService {

@@ -28,7 +28,7 @@
             <!--第二个参数是ID-->
             <a [routerLink]="['/blogs/blogDetail',blog.id]">
               <img *ngIf="blog?.imgUrl" src="{{blog?.imgUrl}}" class="img-responsive img-rounded" width="100%"/>
-              <img *ngIf="!blog?.imgUrl" src="http://fakeimg.pl/640x320/?text=HaHaHa&font=lobster" class="img-responsive img-rounded" width="100%"/>
+              <img *ngIf="!blog?.imgUrl" src="http://fakeimg.pl/640x320/?text=JianGuo&font=lobster" class="img-responsive img-rounded" width="100%"/>
             </a>
             <div class="blog-info">
               <span class="label label-primary">{{blog?.createTime | date:"yyyy-MM-dd"}}</span>

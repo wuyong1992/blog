@@ -1,12 +1,12 @@
 import {Injectable, ViewContainerRef} from '@angular/core';
-import {User} from "../../model/user-model";
+import {User} from "../model/user-model";
 import {Http, URLSearchParams, Headers, Response} from "@angular/http";
 import {Observable} from "rxjs/Observable";
 import 'rxjs/Rx';
 import {Router} from "@angular/router";
 import {Subject} from "rxjs/Subject";
 import {ToastsManager} from "ng2-toastr";
-import {environment} from "../../../environments/environment";
+import {environment} from "../../environments/environment";
 
 @Injectable()
 export class UserService {

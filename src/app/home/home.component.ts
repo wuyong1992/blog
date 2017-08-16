@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {HomeService} from "./service/home.service";
+import {HomeService} from "../service/home.service";
 import {Blog} from "../model/blog-model";
 import {ToastsManager} from "ng2-toastr";
 

@@ -10,16 +10,17 @@ import {HttpModule} from "@angular/http";
 import {AppRoutingModule} from "./app-routing.module";
 import {UserRegisterComponent} from "./user/user-register/user-register.component";
 import {UserLoginComponent} from "./user/user-login/user-login.component";
-import {UserService} from "./user/service/user.service";
+import {UserService} from "./service/user.service";
 import {ToastModule, ToastOptions} from "ng2-toastr";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {ToastOptionSelf} from "./util/toast-option-self";
 import {FroalaEditorModule, FroalaViewModule} from "angular-froala-wysiwyg";
 import {FileUploadModule} from "ng2-file-upload";
 import {CommonModule} from "@angular/common";
-import {BlogService} from "./blogs/service/blog.service";
+import {BlogService} from "./service/blog.service";
 import {UserModule} from "./user/user.module";
-import {HomeService} from "./home/service/home.service";
+import {HomeService} from "./service/home.service";
+import {CategoryService} from "./service/category.service";
 
 
 /*const routeConfig: Routes = [
@@ -39,21 +40,22 @@ import {HomeService} from "./home/service/home.service";
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    FormsModule,
     HttpModule,
     AppRoutingModule,
-    ReactiveFormsModule,
     ToastModule.forRoot(),
     FroalaViewModule.forRoot(),
     FroalaEditorModule.forRoot(),
     CommonModule,
-    FileUploadModule
+    FileUploadModule,
+    ReactiveFormsModule,
+    FormsModule
   ],
   providers: [
     UserService,
     {provide: ToastOptions, useClass: ToastOptionSelf},
     BlogService,
-    HomeService
+    HomeService,
+    CategoryService
   ],
   bootstrap: [AppComponent]
 })

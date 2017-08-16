@@ -3,7 +3,7 @@ import {Injectable, OnInit} from "@angular/core";
 import {ToastsManager} from "ng2-toastr";
 import {Http} from "@angular/http";
 import {User} from "../model/user-model";
-import {UserService} from "../user/service/user.service";
+import {UserService} from "../service/user.service";
 
 /**
  * 路由守卫

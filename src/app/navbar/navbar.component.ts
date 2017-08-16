@@ -1,5 +1,5 @@
 import {Component, DoCheck, Input, OnChanges, OnInit, SimpleChanges, ViewContainerRef} from '@angular/core';
-import {UserService} from "../user/service/user.service";
+import {UserService} from "../service/user.service";
 import {User} from "../model/user-model";
 // import {ToastsManager} from "ng2-toastr";
 import {Router} from "@angular/router";

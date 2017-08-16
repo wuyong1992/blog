@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 
 @Component({
   selector: 'app-richtext',
@@ -10,11 +10,12 @@ export class RichtextComponent implements OnInit {
   @Output()
   froala: EventEmitter<string> = new EventEmitter();
 
+  //接受输入值
+  @Input()
   froalaText: string;
 
   constructor() {
     this.froalaText = "";
-
   }
 
   //配置项
@@ -28,7 +29,7 @@ export class RichtextComponent implements OnInit {
     var that = this;
 
     this.options = {
-      height: 200,        //初始化高度
+      height: 500,        //初始化高度
       language: "zh_cn", //配置语言
       placeholderText: "请输入内容", // 文本框提示内容
       charCounterCount: true, // 是否开启统计字数

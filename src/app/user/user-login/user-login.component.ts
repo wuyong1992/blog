@@ -1,11 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {User} from "../../model/user-model";
-import {UserService} from "../service/user.service";
+import {UserService} from "../../service/user.service";
 import {Router, RouterStateSnapshot} from "@angular/router";
 import {ToastsManager} from "ng2-toastr";
-import {Observable} from "rxjs/Observable";
-import {Subject} from "rxjs/Subject";
+
 
 
 @Component({
@@ -41,7 +40,6 @@ export class UserLoginComponent implements OnInit {
 
   onLogin() {
     this.user = this.userForm.value;
-    console.log(this.user);
     this.userService.login(this.user).subscribe(
       data => {
         if (data.status == 0) {

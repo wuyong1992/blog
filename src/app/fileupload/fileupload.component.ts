@@ -1,11 +1,12 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {FileItem, FileUploader, ParsedResponseHeaders} from "ng2-file-upload";
 import {Router} from "@angular/router";
 import {ToastsManager} from "ng2-toastr";
-import {UserService} from "../user/service/user.service";
+import {UserService} from "../service/user.service";
 import {Headers} from "@angular/http";
+import {environment} from "../../environments/environment";
 
-const URL = 'http://localhost:8080/blog/rest/imgUpload';
+const URL = environment.blogImgUploadUrl;
 
 @Component({
   selector: 'app-fileupload',
@@ -20,6 +21,8 @@ export class FileuploadComponent implements OnInit {
   file: Array<Object>;
   token = localStorage.getItem("token");
   //heardToken = new Headers({"Authorization": "Bearer " + this.token});
+  @Input()
+  blogImgUrl: string = "";
 
   constructor(private router: Router,
               private toastr: ToastsManager,

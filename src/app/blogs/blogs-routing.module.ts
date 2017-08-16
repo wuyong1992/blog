@@ -4,6 +4,7 @@ import {CodingComponent} from "./coding/coding.component";
 import {BlogsComponent} from "./blogs.component";
 import {BlogDetailComponent} from "./blog-detail/blog-detail.component";
 import {LoginGuard} from "../RoutingGuard/login-guard";
+import {BlogEditorComponent} from "./blog-editor/blog-editor.component";
 
 const routes: Routes = [
   {
@@ -24,6 +25,16 @@ const routes: Routes = [
       {
         path: '',
         component: BlogDetailComponent
+      }
+    ]
+  },
+  {
+    path: "editor/:id",
+    component: BlogsComponent,
+    children: [
+      {
+        path: '',
+        component: BlogEditorComponent
       }
     ]
   }

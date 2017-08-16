@@ -4,10 +4,21 @@
     <div class="panel-heading">
       <h3 class="panel-title">search for blog</h3>
     </div>
-    <div class="panel-body">
-      <input type="text" class="form-control" placeholder="输入关键字" />
-      <hr />
-      <a href="#" class="btn btn-info btn-sm btn-block">搜搜看</a>
-    </div>
+    <form class="form-horizontal" [formGroup]="searchForm" (submit)="onSearch()" novalidate>
+      <div class="panel-body">
+        <input type="text" class="form-control" placeholder="输入关键字" formControlName="searchTitle"/>
+        <span class="help-block" [class.hidden]="!searchForm.hasError('maxlength','searchTitle')">
+          <!--{{searchForm.getError('maxlength','searchTitle')?.msg}}-->
+          哪有标题这么长的？！
+        </span>
+        <hr/>
+        <select class="form-control" formControlName="searchCategory">
+          <option value="-1">全部分类</option>
+          <option *ngFor="let category of categorys" [value]="category.id">{{category.name}}</option>
+        </select>
+        <hr/>
+        <button type="submit" class="btn btn-info btn-sm btn-block">搜搜看</button>
+      </div>
+    </form>
   </div>
 </div>

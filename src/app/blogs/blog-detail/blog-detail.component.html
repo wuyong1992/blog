@@ -1,4 +1,4 @@
-<div *ngIf="!blog?.imgUrl">
+<div *ngIf="!blog">
   <div class="blog-main">
     <div class="lds-css">
       <div class="lds-gear" style="width: 100%;height:100%">
@@ -17,7 +17,7 @@
   </div>
 </div>
 <!--博客详情-->
-<div *ngIf="blog?.imgUrl">
+<div *ngIf="blog">
 <div class="blog-main">
   <div class="heading-blog">
     {{blog?.title}}
@@ -38,7 +38,7 @@
   </div>
 
   <div class="pull-right" [hidden]="!isAuthor">
-    <button type="button" class="btn btn-primary btn-lg">修改</button>
+    <button type="button" class="btn btn-primary btn-lg" [routerLink]="['/blogs/editor',blog?.id]">修改</button>
   </div>
 <!--BLOG MAIN SECTION END-->
 

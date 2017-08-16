@@ -10,6 +10,7 @@ import {RichtextComponent} from "../richtext/richtext.component";
 import {FileuploadComponent} from "../fileupload/fileupload.component";
 import { BlogsComponent } from './blogs.component';
 import { BlogDetailComponent } from './blog-detail/blog-detail.component';
+import { BlogEditorComponent } from './blog-editor/blog-editor.component';
 
 @NgModule({
   imports: [
@@ -21,6 +22,6 @@ import { BlogDetailComponent } from './blog-detail/blog-detail.component';
     FroalaViewModule.forRoot(),
     FileUploadModule
   ],
-  declarations: [CodingComponent,RichtextComponent,FileuploadComponent, BlogsComponent, BlogDetailComponent]
+  declarations: [CodingComponent,RichtextComponent,FileuploadComponent, BlogsComponent, BlogDetailComponent, BlogEditorComponent]
 })
 export class BlogsModule { }
