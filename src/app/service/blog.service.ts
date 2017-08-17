@@ -17,6 +17,8 @@ export class BlogService {
   public blogUpdateURL = environment.blogUpdateURL;
   public getAllBlogsUrl = environment.getAllBlogsUrl;
   public getBlogByIdUrl = environment.getBlogByIdUrl;
+  public deleteBlogUrl = environment.deleteBlogUrl;
+  public hideBlogUrl = environment.hideBlogUrl;
 
 
   constructor(private http: Http,
@@ -83,10 +85,26 @@ export class BlogService {
   }
 
   //根据搜索条件查找对应的blogs
-  searchBlog(serachParams: SearchParams)
-  {
+  searchBlog(serachParams: SearchParams) {
     // return this.http.post()
   }
+
+  //改变blog状态 --删除
+  deleteBlog(id: number, token: string) {
+    let heard = new Headers({"Authorization": "Bearer " + token, "Content-Type": "application/json"});
+    return this.http.get(this.deleteBlogUrl, {headers: heard})
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
+
+  //改变blog状态 --禁用
+  hideBlog(id: number, token: string) {
+    let heard = new Headers({"Authorization": "Bearer " + token, "Content-Type": "application/json"});
+    return  this.http.get(this.hideBlogUrl, {headers: heard})
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
+
 
   //从可观察对象中提取数据
   private extractData(res: Response) {

@@ -17,6 +17,8 @@ export const environment = {
   blogUpdateURL: "http://localhost:8080/blog/rest/blogUpdate",
   getBlogByIdUrl: "http://localhost:8080/blog/getBlogById",
   blogImgUploadUrl:"http://localhost:8080/blog/rest/imgUpload",
+  deleteBlogUrl:"http://localhost:8080/blog/rest/deleteBlog/id",
+  hideBlogUrl:"http://localhost:8080/blog/rest/hideBlog/id",
   //category
   getCategorysUrl:"http://localhost:8080/category/getCategorys"
 };

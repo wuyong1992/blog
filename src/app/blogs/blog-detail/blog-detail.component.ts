@@ -5,21 +5,26 @@ import {BlogService} from "../../service/blog.service";
 import {ToastsManager} from "ng2-toastr";
 import {User} from "../../model/user-model";
 
+declare let $: any;
+
 @Component({
   selector: 'app-blog-detail',
   templateUrl: './blog-detail.component.html',
-  styleUrls: ['./blog-detail.component.css']
+  styleUrls: ['./blog-detail.component.css'],
 })
 export class BlogDetailComponent implements OnInit {
 
   public blog: Blog = new Blog;
   public user: User = new User;
   public isAuthor: boolean = false;
+  public token = localStorage.getItem("token");
+  public message = "";
+
 
   constructor(private activateRouter: ActivatedRoute,
               private router: Router,
               private blogService: BlogService,
-              private toastr: ToastsManager) {
+              private toastr: ToastsManager,) {
   }
 
   ngOnInit() {
@@ -28,7 +33,6 @@ export class BlogDetailComponent implements OnInit {
       this.blog.id = params["id"];
       this.getBlogById();
     });
-
   }
 
   getBlogById() {
@@ -54,5 +58,48 @@ export class BlogDetailComponent implements OnInit {
 
   }
 
+  public sum: number = 0;
+  //删除blog,后台将其状态设为已删除
+  deleteBlog(id: number) {
+    this.sum++;
+    $(".btnnnn").text("haha" + this.sum);
+    /*this.blogService.deleteBlog(id, this.token)
+      .subscribe(
+        data => {
+          if (data.status == 0) {
+            //操作成功
+            this.toastr.warning("操作成功", "系统提示", 2500);
+            this.router.navigateByUrl("home");
+          }
+          else {
+            this.toastr.warning("操作失败", "系统提示", 2500);
+          }
+        },
+        error2 => {
+          this.toastr.warning("操作失败", "系统提示", 2500);
+        }
+      )*/
+  }
+
+
+  //隐藏blog,后台将其状态设为影藏
+  hiddenBlog(id: number) {
+    this.blogService.hideBlog(id, this.token)
+      .subscribe(
+        data => {
+          if (data.status == 0) {
+            //操作成功
+            this.toastr.warning("操作成功", "系统提示", 2500);
+            this.router.navigateByUrl("home");
+          }
+          else {
+            this.toastr.warning("操作失败", "系统提示", 2500);
+          }
+        },
+        error2 => {
+          this.toastr.warning("操作失败", "系统提示", 2500);
+        }
+      )
+  }
 
 }

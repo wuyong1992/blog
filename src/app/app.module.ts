@@ -18,7 +18,6 @@ import {FroalaEditorModule, FroalaViewModule} from "angular-froala-wysiwyg";
 import {FileUploadModule} from "ng2-file-upload";
 import {CommonModule} from "@angular/common";
 import {BlogService} from "./service/blog.service";
-import {UserModule} from "./user/user.module";
 import {HomeService} from "./service/home.service";
 import {CategoryService} from "./service/category.service";
 
@@ -48,7 +47,8 @@ import {CategoryService} from "./service/category.service";
     CommonModule,
     FileUploadModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+
   ],
   providers: [
     UserService,

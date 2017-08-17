@@ -23,7 +23,7 @@
           <!--内容-->
           <div class="blog-main">
             <div class="heading-blog">
-              {{blog?.title}}
+              <a [routerLink]="['/blogs/blogDetail',blog.id]">{{blog?.title}}</a>
             </div>
             <!--第二个参数是ID-->
             <a [routerLink]="['/blogs/blogDetail',blog.id]">

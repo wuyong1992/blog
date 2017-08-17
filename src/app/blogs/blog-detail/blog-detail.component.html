@@ -1,3 +1,6 @@
+<link rel="stylesheet" href="../../../assets/layer/mobile/need/layer.css" xmlns="">
+<script src="../../../assets/layer/layer.js"></script>
+
 <div *ngIf="!blog">
   <div class="blog-main">
     <div class="lds-css">
@@ -39,6 +42,8 @@
 
   <div class="pull-right" [hidden]="!isAuthor">
     <button type="button" class="btn btn-primary btn-lg" [routerLink]="['/blogs/editor',blog?.id]">修改</button>
+    <button type="button" class="btn btn-warning btn-lg" (click)="hiddenBlog(blog.id)">隐藏</button>
+    <button type="button" class="btn btn-danger btn-lg  btnnnn" (click)="deleteBlog(blog.id)" >删除</button>
   </div>
 <!--BLOG MAIN SECTION END-->
 

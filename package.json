@@ -26,6 +26,7 @@
     "core-js": "^2.4.1",
     "font-awesome": "^4.7.0",
     "jquery": "^3.2.1",
+    "ng2-dynamic-dialog": "^2.1.0",
     "ng2-file-upload": "^1.2.1",
     "ng2-toastr": "^4.1.2",
     "rxjs": "^5.4.2",

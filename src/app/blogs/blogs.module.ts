@@ -12,6 +12,7 @@ import { BlogsComponent } from './blogs.component';
 import { BlogDetailComponent } from './blog-detail/blog-detail.component';
 import { BlogEditorComponent } from './blog-editor/blog-editor.component';
 
+
 @NgModule({
   imports: [
     CommonModule,
@@ -20,8 +21,15 @@ import { BlogEditorComponent } from './blog-editor/blog-editor.component';
     ReactiveFormsModule,
     FroalaEditorModule.forRoot(),
     FroalaViewModule.forRoot(),
-    FileUploadModule
+    FileUploadModule,
   ],
-  declarations: [CodingComponent,RichtextComponent,FileuploadComponent, BlogsComponent, BlogDetailComponent, BlogEditorComponent]
+  declarations: [
+    CodingComponent,
+    RichtextComponent,
+    FileuploadComponent,
+    BlogsComponent,
+    BlogDetailComponent,
+    BlogEditorComponent,
+  ]
 })
 export class BlogsModule { }
